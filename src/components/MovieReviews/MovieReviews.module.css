@@ -1,0 +1,42 @@
+.reviews {
+  padding: 30px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: rgb(189, 220, 255);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  margin-bottom: 20px;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.author {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.content {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.noReviews {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  margin-top: 30px;
+}

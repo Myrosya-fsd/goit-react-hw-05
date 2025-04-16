@@ -1,0 +1,32 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  text-align: center;
+  background-color: #333;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+}
+
+.image {
+  border-radius: 8px;
+  width: 220px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.character {
+  font-size: 11px;
+  color: #aaa;
+}

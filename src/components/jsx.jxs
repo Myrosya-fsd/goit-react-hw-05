@@ -1,0 +1,89 @@
+import React, { useState, useEffect } from "react";
+import { Field, Form, Formik } from "formik";
+import { useSearchParams } from "react-router-dom";
+import { searchMovies } from "../../services/api";
+import styles from "./Movies.module.css";
+import List from "../../components/List/List";
+
+const Movies = () => {
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const [searchTerm, setSearchTerm] = useState(query);
+
+  useEffect(() => {
+    if (!query) return;
+
+    const fetchMovies = async () => {
+      try {
+        const data = await searchMovies(query);
+        setMovies(data);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [query]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      setSearchParams({ query: searchTerm.trim() });
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <Formik
+        initialValues={{ query: searchTerm }}
+        enableReinitialize
+        onSubmit={(values) => {
+          if (values.query.trim()) {
+            setSearchParams({ query: values.query.trim() });
+          }
+        }}
+      >
+        {({ values, handleChange }) => (
+          <Form className={styles.searchForm}>
+            <Field
+              type="text"
+              name="query"
+              value={values.query}
+              onChange={(e) => {
+                handleChange(e);
+                setSearchTerm(e.target.value); // щоб стейт оновлювався
+              }}
+              className={styles.field}
+              placeholder="Search..."
+            />
+            <button className={styles.btn} type="submit">
+              Search
+            </button>
+          </Form>
+        )}
+      </Formik>
+
+      {movies.length > 0 && <List movies={movies} />}
+    </div>
+  );
+};
+
+export default Movies;
+
+
+<Formik onSubmit={handleSubmit} className={styles.searchForm}>
+  <Form>
+    <Field
+      type="text"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className={styles.field}
+      name="query"
+      placeholder="Search..."
+    />
+    <button className={styles.btn} type="submit">
+      Search
+    </button>
+  </Form>
+</Formik>;
